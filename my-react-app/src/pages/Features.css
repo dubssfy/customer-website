@@ -360,13 +360,16 @@
   }
   
   .zigzag-row {
-    flex-direction: column;
-    gap: 40px;
+
+     flex-direction: column;
+    align-items: center;
+    gap: 24px;
   }
   
   .zigzag-card-container {
     /*width: 100%;*/
-    width: 80px;
+     width: 100%;
+    max-width: 420px;
     
   }
 
@@ -394,4 +397,27 @@
   .row-line {
     display: none;
   }
+  .snake-card-inner {
+    width: 100%;
+}
+.process-section {
+    padding: 60px 20px;
+}
+
+.featured-services-section {
+    padding: 60px 20px;
+}
 } 
+@media (max-width: 768px) {
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .service-card {
+        width: 100%;
+        max-width: 380px;
+        min-height: auto;
+    }
+}
