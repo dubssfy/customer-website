@@ -15,6 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Verify SMTP connection when the server starts
+console.log(`📧 SMTP Config - Host: ${process.env.EMAIL_HOST || "smtp.gmail.com"}, Port: ${process.env.EMAIL_PORT || "587"}, Secure: ${process.env.EMAIL_SECURE === "true"}`);
 transporter.verify((error, success) => {
   if (error) {
     console.error("SMTP Verification Failed:");
