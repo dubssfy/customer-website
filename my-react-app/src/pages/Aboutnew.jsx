@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { Expand } from "lucide-react";
 import './Aboutnew.css';
 
 const OurPromise = () => {
@@ -37,6 +38,25 @@ const OurPromise = () => {
       }
     }
   };
+  const openFullscreen = (e) => {
+  e.stopPropagation();
+
+  const video = videoRef.current;
+  if (!video) return;
+
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitEnterFullscreen) {
+    // iPhone Safari
+    video.webkitEnterFullscreen();
+  } else if (video.webkitRequestFullscreen) {
+    // Older Safari
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) {
+    // IE/Edge
+    video.msRequestFullscreen();
+  }
+};
 
   const handlePlay = () => {
     if (videoRef.current) {
@@ -67,6 +87,8 @@ const OurPromise = () => {
               playsInline
               onPause={handlePause}
               onEnded={handleEnded}
+             controlsList="nodownload"
+             disablePictureInPicture
             />
 
             {!playing && (
@@ -82,6 +104,13 @@ const OurPromise = () => {
               </button>
             )}
           </div>
+          <button
+  className="fullscreen-btn"
+  onClick={openFullscreen}
+  aria-label="Fullscreen"
+>
+  <Expand size={20} />
+</button>
 
           <p className="promise-caption">
             Discover why thousands of people trust us to care for their clothes!

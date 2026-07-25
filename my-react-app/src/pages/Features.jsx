@@ -29,11 +29,11 @@ const featuredServices = [
     link: "/service/dry-cleaning"
   },
   {
-    id: "self-service",
+    id: "Self-Service",
     icon: "🏪",
-    title: "Self Service and",
-    subtitle: "Laundromat",
-    desc: "Modern self-service facility with high-efficiency washers and dryers. Available at our Jalgaon MIDC location.",
+    title: "Express Service and Delivery",
+    subtitle: "Laundry Service",
+    desc: "Modern Express-service facility with high-efficiency washers and dryers. Available at our Jalgaon MIDC location.",
     link: "/contact"
   }
 ];

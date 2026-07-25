@@ -177,6 +177,33 @@
   line-height: 1.8;
   font-weight: 450;
 }
+.fullscreen-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: 0.3s;
+    z-index: 20;
+}
+
+.fullscreen-btn:hover {
+    background: rgba(30, 58, 138, 0.9);
+    transform: scale(1.08);
+}
+
+.promise-video {
+    position: relative;
+}
 
 @media (max-width: 1024px) {
   .our-promise { padding: 80px 5%; }
