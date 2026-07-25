@@ -39,7 +39,7 @@ const Footer = () => {
         <div className="footer-about">
 
           <h2 className="footer-logo">
-            Swaccham
+            Swachham
           </h2>
 
           <p>
@@ -53,17 +53,17 @@ const Footer = () => {
 
             <div>
               <MapPin size={18} />
-              <span>Jalgaon, Maharashtra</span>
+              <span> Dapoli, Maharashtra</span>
             </div>
 
             <div>
               <Phone size={18} />
-              <span>+91  96840299 90/91/92</span>
+              <span>+91  9684029991</span>
             </div>
 
             <div>
               <Mail size={18} />
-              <span>swachham.dapoli@gmail.com</span>
+              <span>info@swachham.co.in</span>
             </div>
 
             <div>
@@ -122,7 +122,7 @@ const Footer = () => {
 
           <p>
             Book pickups, track orders and make payments
-            directly from the Swaccham App.
+            directly from the Swachham App.
           </p>
 
           <div className="store-buttons">
@@ -173,7 +173,7 @@ const Footer = () => {
         </div>
 
         <p>
-          © {new Date().getFullYear()} Swaccham Laundry Services.
+          © {new Date().getFullYear()} Swachham.
           All Rights Reserved.
         </p>
 

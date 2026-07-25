@@ -7,7 +7,7 @@ export default function FloatingContact() {
     <div className="floating-contact-container">
       {/* Phone Button */}
       <a 
-        href="tel:+919684029990" 
+        href="tel:+919684029991" 
         className="floating-btn phone-btn animate-pulse-phone"
         aria-label="Call Swaccham Laundry"
         title="Call Us"
@@ -17,7 +17,7 @@ export default function FloatingContact() {
 
       {/* WhatsApp Button */}
       <a 
-        href="https://wa.me/919684029990" 
+        href="https://wa.me/919684029991" 
         target="_blank" 
         rel="noopener noreferrer" 
         className="floating-btn whatsapp-btn animate-pulse-wa"

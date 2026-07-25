@@ -82,21 +82,21 @@ export default function Contact() {
     {
       icon: <MapPin size={24} />,
       title: "Address",
-      details: "MIDC Area, Dapoli, Maharashtra 415712",
+      details: "Jalgaon, Dapoli, Maharashtra 415712",
       sub: "Doorstep Pickup across Dapoli region",
       color: "card-green"
     },
     {
       icon: <Phone size={24} />,
       title: "Phone",
-      details: "+91 9684029990",
-      sub: "+91 9684029991 / 92",
+      details: "+91 9684029991",
+      //sub: "+91 9684029991 / 92",
       color: "card-teal"
     },
     {
       icon: <Mail size={24} />,
       title: "Email",
-      details: "support@swacchamlaundry.com",
+      details: "info@swachham.co.in",
       sub: "response within 2 hours",
       color: "card-emerald"
     },
@@ -122,7 +122,7 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Contact Swaccham Laundry
+            Contact Swachham Laundry
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -357,7 +357,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              Why Customers Love Swaccham
+              Why Customers Love Swachham
             </motion.h2>
             <motion.p 
               className="why-desc"
