@@ -75,11 +75,12 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-// Initialize DB tables, then start server
-initializeDatabase().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📧 EMAIL_USER: ${process.env.EMAIL_USER}`);
-    console.log(`🔑 JWT_SECRET exists: ${!!process.env.JWT_SECRET}`);
-  });
+// Start server immediately to satisfy Railway's health checks
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📧 EMAIL_USER: ${process.env.EMAIL_USER}`);
+  console.log(`🔑 JWT_SECRET exists: ${!!process.env.JWT_SECRET}`);
+
+  // Initialize DB tables in the background
+  initializeDatabase();
 });
