@@ -23,6 +23,14 @@ dns.setDefaultResultOrder("ipv4first");
 
 dotenv.config();
 
+process.on('uncaughtException', (err) => {
+  console.error('🔥 UNCAUGHT EXCEPTION:', err.stack || err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('🔥 UNHANDLED REJECTION:', reason.stack || reason);
+});
+
 const app = express();
 
 // Middleware
