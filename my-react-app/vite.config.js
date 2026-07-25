@@ -1,16 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react],
 
   preview: {
     host: "0.0.0.0",
-    port: process.env.PORT || 4173,
-    allowedHosts: [
-      "customer-website-production-f7db.up.railway.app",
-      "swachham.co.in",
-      "www.swachham.co.in"
-    ]
-  }
-})
+    port: Number(process.env.PORT) || 4173,
+    allowedHosts: true,
+  },
+});
