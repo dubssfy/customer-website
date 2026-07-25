@@ -1,36 +1,16 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || "smtp.gmail.com",
-  port: parseInt(process.env.EMAIL_PORT || "587"),
-  secure: process.env.EMAIL_SECURE === "true",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  connectionTimeout: 10000, // 10 seconds timeout
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Verify SMTP connection when the server starts
-console.log(`📧 SMTP Config - Host: ${process.env.EMAIL_HOST || "smtp.gmail.com"}, Port: ${process.env.EMAIL_PORT || "587"}, Secure: ${process.env.EMAIL_SECURE === "true"}`);
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("SMTP Verification Failed:");
-    console.error(error);
-  } else {
-    console.log("SMTP Server is ready.");
-  }
-});
+console.log(`📧 Resend Email Integration initialized. API Key set: ${!!process.env.RESEND_API_KEY}`);
 
 export const sendConfirmationEmail = async (toEmail, bookingDetails) => {
   try {
     console.log("================================");
-    console.log("Sending email to:", toEmail);
-    console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+    console.log("Sending email via Resend to:", toEmail);
     console.log("================================");
 
     const {
@@ -42,15 +22,17 @@ export const sendConfirmationEmail = async (toEmail, bookingDetails) => {
       estimatedPickup,
     } = bookingDetails;
 
-    const info = await transporter.sendMail({
-      from: `"Swaccham Laundry" <${process.env.EMAIL_USER}>`,
-      to: toEmail,
+    // Use EMAIL_FROM env var if domain is verified in Resend (e.g. hello@swachham.co.in)
+    // If not verified, fallback to Resend's default sender for sandboxed accounts
+    const senderEmail = process.env.EMAIL_FROM || "onboarding@resend.dev";
+
+    const { data, error } = await resend.emails.send({
+      from: `Swaccham Laundry <${senderEmail}>`,
+      to: [toEmail],
       subject: "Pickup Scheduled Successfully - Swaccham Laundry",
       html: `
       <h2>Thank You ${name}</h2>
-
       <p>Your booking has been confirmed.</p>
-
       <ul>
         <li><b>Booking ID:</b> ${bookingId}</li>
         <li><b>Service:</b> ${service}</li>
@@ -61,11 +43,14 @@ export const sendConfirmationEmail = async (toEmail, bookingDetails) => {
       `,
     });
 
-    console.log("Email Sent Successfully");
-    console.log(info);
+    if (error) {
+      console.error("❌ Resend Email Error details:", error);
+    } else {
+      console.log("✅ Email Sent Successfully via Resend. ID:", data.id);
+    }
 
   } catch (err) {
-    console.error("EMAIL ERROR");
+    console.error("❌ EMAIL ERROR");
     console.error(err);
   }
 };
