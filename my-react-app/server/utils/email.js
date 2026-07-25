@@ -24,7 +24,7 @@ export const sendConfirmationEmail = async (toEmail, bookingDetails) => {
 
     // Use EMAIL_FROM env var if domain is verified in Resend (e.g. hello@swachham.co.in)
     // If not verified, fallback to Resend's default sender for sandboxed accounts
-    const senderEmail = process.env.EMAIL_FROM || "onboarding@resend.dev";
+    const senderEmail = process.env.EMAIL_FROM || "noreply@swachham.co.in";
 
     const { data, error } = await resend.emails.send({
       from: `Swaccham Laundry <${senderEmail}>`,
