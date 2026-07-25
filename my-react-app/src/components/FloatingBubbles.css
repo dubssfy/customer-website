@@ -1,0 +1,89 @@
+.bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10; /* Move over content */
+}
+
+.bubble {
+  position: absolute;
+  bottom: -100px; /* Start below the container */
+  border-radius: 50%;
+  /* Use theme blue/cyan colors instead of white so it shows against light backgrounds */
+  background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.05));
+  box-shadow: 
+    inset 0 0 15px rgba(37, 99, 235, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(2px);
+  animation: floatUp 15s linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-1500px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.bubble-1 {
+  left: 10%;
+  width: 60px;
+  height: 60px;
+  animation-duration: 12s;
+  animation-delay: 0s;
+}
+
+.bubble-2 {
+  left: 30%;
+  width: 80px;
+  height: 80px;
+  animation-duration: 18s;
+  animation-delay: 2s;
+}
+
+.bubble-3 {
+  left: 55%;
+  width: 40px;
+  height: 40px;
+  animation-duration: 10s;
+  animation-delay: 4s;
+}
+
+.bubble-4 {
+  left: 75%;
+  width: 100px;
+  height: 100px;
+  animation-duration: 22s;
+  animation-delay: 1s;
+}
+
+.bubble-5 {
+  left: 85%;
+  width: 50px;
+  height: 50px;
+  animation-duration: 15s;
+  animation-delay: 6s;
+}
+
+.bubble-6 {
+  left: 20%;
+  width: 70px;
+  height: 70px;
+  animation-duration: 20s;
+  animation-delay: 8s;
+}

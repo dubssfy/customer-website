@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 120" width="540" height="120">
+  <defs>
+    <!-- Deep Navy to Bright Blue gradient -->
+    <linearGradient id="brandBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <!-- Cyan water gradient inside drum -->
+    <linearGradient id="waterCyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD" />
+      <stop offset="100%" stop-color="#0EA5E9" />
+    </linearGradient>
+    <!-- Light glow circle gradient -->
+    <radialGradient id="glowCircle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0" />
+    </radialGradient>
+    <!-- Logo text gradient -->
+    <linearGradient id="logoTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+  </defs>
+
+  <!-- Subtle outer glow circle -->
+  <circle cx="60" cy="60" r="56" fill="url(#glowCircle)" />
+
+  <!-- Washing machine chassis -->
+  <rect x="12" y="12" width="96" height="96" rx="22" fill="#ffffff" stroke="url(#brandBlueGrad)" stroke-width="6.5" />
+
+  <!-- Top control panel accent bar -->
+  <rect x="12" y="12" width="96" height="34" rx="22" fill="url(#brandBlueGrad)" />
+  <!-- Bottom half of top bar (square bottom edge) -->
+  <rect x="12" y="30" width="96" height="16" fill="url(#brandBlueGrad)" />
+
+  <!-- Control panel elements -->
+  <!-- Status LED dot - yellow/amber -->
+  <circle cx="31" cy="27" r="5" fill="#FCD34D" />
+  <!-- Small green power dot -->
+  <circle cx="48" cy="27" r="3.5" fill="#6EE7B7" />
+  <!-- Dark dot -->
+  <circle cx="60" cy="27" r="3" fill="rgba(255,255,255,0.3)" />
+  <!-- Dial knob -->
+  <circle cx="89" cy="27" r="7" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" />
+  <line x1="89" y1="27" x2="89" y2="22" stroke="white" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Washing Machine Drum (Circular Glass Door) -->
+  <circle cx="60" cy="72" r="25" fill="white" stroke="url(#brandBlueGrad)" stroke-width="5" />
+  
+  <!-- Inner drum ring -->
+  <circle cx="60" cy="72" r="20" fill="none" stroke="#DBEAFE" stroke-width="1.5" />
+
+  <!-- Water inside drum -->
+  <clipPath id="drumClip">
+    <circle cx="60" cy="72" r="19.5" />
+  </clipPath>
+  <g clip-path="url(#drumClip)">
+    <ellipse cx="60" cy="80" rx="22" ry="14" fill="url(#waterCyanGrad)" opacity="0.75" />
+    <!-- Clothes wave (yellow arc) -->
+    <path d="M 43 67 C 50 59, 70 59, 77 67 C 70 74, 50 74, 43 67" fill="#FCD34D" opacity="0.7" />
+    <!-- Bubble details -->
+    <circle cx="50" cy="76" r="3" fill="white" opacity="0.4" />
+    <circle cx="67" cy="79" r="2" fill="white" opacity="0.35" />
+  </g>
+
+  <!-- Sparkle top-right -->
+  <path d="M 87 43 L 89.5 49 L 95 51 L 89.5 53 L 87 59 L 84.5 53 L 79 51 L 84.5 49 Z" fill="#FCD34D" />
+  <!-- Small sparkle bottom-left -->
+  <path d="M 30 85 L 31.5 89 L 35 90.5 L 31.5 92 L 30 96 L 28.5 92 L 25 90.5 L 28.5 89 Z" fill="#60A5FA" opacity="0.7" />
+
+  <!-- SWACCHAM Text -->
+  <text x="125" y="62" font-family="'Poppins', 'Outfit', 'Inter', system-ui, sans-serif" font-weight="800" font-size="44" fill="url(#logoTextGrad)" letter-spacing="3">SWACCHAM</text>
+  <!-- Tagline -->
+  <text x="127" y="88" font-family="'Poppins', 'Outfit', 'Inter', system-ui, sans-serif" font-weight="600" font-size="15" fill="#FCD34D" letter-spacing="10">LAUNDRY</text>
+</svg>

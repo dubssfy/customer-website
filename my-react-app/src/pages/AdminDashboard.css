@@ -1,0 +1,262 @@
+/* ========================================
+   ADMIN DASHBOARD
+   ======================================== */
+
+.admin-dashboard {
+  padding: 40px;
+  background: #F8FAFC;
+  min-height: calc(100vh - 80px);
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #1E293B;
+  margin-bottom: 8px;
+}
+
+.dashboard-header p {
+  color: #64748B;
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  border: 1px solid #E2E8F0;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.stat-icon-wrapper.blue {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
+}
+
+.stat-icon-wrapper.yellow {
+  background: rgba(245, 158, 11, 0.1);
+  color: #F59E0B;
+}
+
+.stat-icon-wrapper.green {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+}
+
+.stat-icon-wrapper.red {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+.stat-details h3 {
+  font-size: 0.9rem;
+  color: #64748B;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+/* Table Container */
+.table-container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  border: 1px solid #E2E8F0;
+}
+
+.table-header {
+  margin-bottom: 24px;
+}
+
+.table-header h2 {
+  font-size: 1.25rem;
+  color: #1E293B;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.orders-table th {
+  padding: 16px;
+  background: #F8FAFC;
+  color: #64748B;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.orders-table td {
+  padding: 16px;
+  border-bottom: 1px solid #E2E8F0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.orders-table tr:hover {
+  background: #F8FAFC;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: #1E293B;
+}
+
+/* Badges */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #D97706;
+}
+
+.status-badge.completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+}
+
+/* Actions Dropdown */
+.actions-cell {
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #64748B;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #F1F5F9;
+  color: #1E293B;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content button {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #475569;
+  transition: background 0.2s ease;
+}
+
+.dropdown-content button:hover {
+  background: #F8FAFC;
+}
+
+.complete-action:hover {
+  color: #059669 !important;
+}
+
+.cancel-action:hover {
+  color: #D97706 !important;
+}
+
+.delete-action {
+  color: #EF4444 !important;
+}
+.delete-action:hover {
+  background: #FEF2F2 !important;
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #64748B;
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 20px;
+  }
+}

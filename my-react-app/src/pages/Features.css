@@ -1,0 +1,397 @@
+/* -------------------------------------------------------------------------- */
+/* FEATURES PAGE OVERALL                                                      */
+/* -------------------------------------------------------------------------- */
+.features-page {
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background-color: #FAFAFA;
+  
+}
+.features-layout {
+    display: flex;
+   align-items: stretch;
+   
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* FEATURED SERVICES SECTION                                                  */
+/* -------------------------------------------------------------------------- */
+.featured-services-section {
+    flex: 1;
+    padding: 80px 40px;
+   
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+ 
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1E3A8A;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.title-underline {
+  height: 4px;
+  width: 60px;
+  background: #0EA5E9;
+  margin: 0 auto 50px;
+  border-radius: 2px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2,320px);
+  gap: 30px;
+}
+
+.service-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 40px 25px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-premium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  opacity: 0;
+  transform: translateY(20px);
+  min-height: 500px;
+}
+
+.service-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(14, 165, 233, 0.12);
+  border-color: #90d5ff;
+}
+
+.service-icon-box {
+  width: 100px;
+  height: 100px;
+  background: #F0F9FF;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  font-size: 50px;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon-box {
+  background: #E0F2FE;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.service-title {
+  font-size: 25px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 5px;
+}
+
+.service-subtitle {
+  font-size: 17px;
+  font-weight: 500;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.service-desc {
+  font-size: 18px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+/* -------------------------------------------------------------------------- */
+/* OUR PROCESS SECTION                                                        */
+/* -------------------------------------------------------------------------- */
+.process-section {
+  flex: 1;
+  padding: 80px 40px;
+   
+}
+
+
+.process-header {
+  text-align: center;
+  max-width: 800px;
+ /* margin: 0 auto 80px;*/
+  position: relative;
+  z-index: 2;
+  top:-5px;
+}
+
+.process-subtitle {
+  color: #FFB703;;
+  font-weight: 700;
+  font-size: 35px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.process-title {
+  color:  #FFB703;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  margin: 10px 0 20px;
+}
+
+.process-leaf-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  color:  #FFB703;;
+  font-size: 24px;
+}
+
+.process-leaf-divider::before,
+.process-leaf-divider::after {
+  content: '';
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent,  #FFB703, transparent);
+  margin: 0 15px;
+}
+
+.process-description {
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ZIGZAG TIMELINE (2 Containers Per Row)                                     */
+/* -------------------------------------------------------------------------- */
+.zigzag-timeline-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 40px; /* Space for the curves */
+  display: flex;
+  flex-direction: column;
+  gap: 80px; /* Exact gap for the S curve connectors */
+  
+}
+
+.zigzag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.row-line {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  right: -20px;
+  height: 3px;
+  background:  #FFB703;;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.zigzag-card-container {
+  width: 48%;
+  position: relative;
+  z-index: 2; /* Sits on top of the line */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.zigzag-card-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Perfect S-Curve Connectors (Dynamic Height Independent) */
+.s-connector-top {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  left: 20px; /* leaves 40px gap on left for the bottom curve */
+  height: calc(50% + 40px); /* 40px is exactly half of the 80px gap */
+  border-right: 3px solid  #FFB703;;
+  border-bottom: 3px solid  #FFB703;;
+  border-bottom-right-radius: 40px;
+  z-index: 1;
+}
+
+.s-connector-bottom {
+  position: absolute;
+  bottom: 50%; /* Go up from the center of the bottom row */
+  left: -20px;
+  width: 40px; /* 40px width curve matching the left gap left by s-connector-top */
+  height: calc(50% + 40px); /* meets perfectly at the midway horizontal line */
+  border-left: 3px solid  #FFB703;;
+  border-top: 3px solid  #FFB703;;
+  border-top-left-radius: 40px;
+  z-index: 1;
+}
+
+/* Card inner styles (Icon on the left, text on the right) */
+.snake-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  background: #FFFFFF; /* Covers the line behind it */
+  border-radius: 16px;
+  transition: var(--transition-premium);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.snake-card-inner:hover {
+  transform: translateY(-2px) scale(1.01);
+  background: #F8FAFC;
+  box-shadow: var(--shadow-md);
+  border-color: rgba(30, 58, 138, 0.1);
+}
+
+.snake-icon-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 3;
+}
+
+.snake-icon-inner {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #FFFFFF; /* White to block out the green line passing through */
+  border: 2px dashed  #1E3A8A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: all 0.4s ease;
+}
+
+.snake-card-inner:hover .snake-icon-inner {
+  background: #ECFDF5;
+  border-style: solid;
+ /* transform: rotate(10deg);*/
+  transform: rotate(10deg);
+}
+
+.snake-step-number {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 26px;
+  height: 26px;
+  background:  #1E3A8A;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.snake-text-content {
+  flex: 1;
+  text-align: left;
+}
+
+.snake-step-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 6px;
+}
+
+.snake-step-desc {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .zigzag-timeline-container {
+    padding: 0 20px;
+  }
+  
+  .zigzag-card-container {
+    width: 48%;
+  }
+
+  .snake-card-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 15px;
+  }
+  
+  .snake-text-content {
+    text-align: center;
+  }
+}
+
+@media (max-width: 650px) {
+  .zigzag-timeline-container {
+    gap: 40px;
+  }
+  
+  .zigzag-row {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .zigzag-card-container {
+    /*width: 100%;*/
+    width: 80px;
+    
+  }
+
+  /* On extremely small screens, we hide the complex S-curves and rely on a simpler vertical line or just the horizontal line through the single column */
+  .s-connector-top,
+  .s-connector-bottom {
+    display: none;
+  }
+
+  /* Single vertical line for mobile */
+  .zigzag-timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+   background:  #1E3A8A;
+   
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  /* Hide horizontal line */
+  .row-line {
+    display: none;
+  }
+} 

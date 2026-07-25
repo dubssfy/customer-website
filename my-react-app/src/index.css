@@ -1,0 +1,284 @@
+/* ========================================
+   SWACCHAM — GLOBAL DESIGN SYSTEM (Blue Theme)
+   ======================================== */
+
+:root {
+  /* Primary - Deep Navy Blue (from logo text) */
+  --primary: #1E3A8A;
+  --primary-dark: #152E6B;
+  --primary-light: #3B6DD6;
+  --primary-lighter: #DBEAFE;
+
+  /* Secondary - Golden Amber (from logo circle) */
+  --secondary: #F5A623;
+  --secondary-dark: #D4891A;
+  --secondary-light: #FBC96C;
+  --secondary-lighter: #FEF3C7;
+
+  /* Accent - Sky Blue (from logo water element) */
+  --accent: #0EA5E9;
+  --accent-light: #BAE6FD;
+
+  /* Semantic Colors (kept for functionality) */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Backgrounds */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-dark: #0F1B3D;
+  --bg-tint: #F0F4FF;
+
+  /* Text */
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --text-light: #94A3B8;
+
+  /* Global variables */
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --text: var(--text-primary);
+  --background: var(--bg-primary);
+
+  /* Borders & Premium Shadows */
+  --border-color: #E2E8F0;
+  --shadow-sm: 0 2px 8px rgba(30, 58, 138, 0.04);
+  --shadow-md: 0 8px 24px rgba(30, 58, 138, 0.06);
+  --shadow-lg: 0 16px 40px rgba(30, 58, 138, 0.08);
+  --shadow-xl: 0 24px 60px rgba(30, 58, 138, 0.1);
+  --transition-premium: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EFF6FF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2563EB;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1E3A8A;
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+}
+
+p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-family);
+}
+
+/* ========================================
+   GLOBAL ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Utility: Animate on scroll (triggered via JS) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium Card & Hover Utilities */
+.premium-card {
+  background: var(--bg-primary);
+  border: 1px solid rgba(30, 58, 138, 0.06);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-premium);
+}
+
+.hover-lift {
+  transition: var(--transition-premium) !important;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.image-zoom-container {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.image-zoom-container img {
+  transition: var(--transition-premium);
+}
+
+.image-zoom-container:hover img {
+  transform: scale(1.04);
+}
+
+/* ========================================
+   RESPONSIVE HELPERS
+   ======================================== */
+
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}

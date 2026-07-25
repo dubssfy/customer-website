@@ -1,0 +1,21 @@
+/* ========================================
+   APP LAYOUT
+   ======================================== */
+
+.App {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App > main,
+.App > section,
+.App > div:not(:first-child) {
+  flex: 0 0 auto;
+}
+
+/* Page content area grows to push footer down */
+.page-content {
+  flex: 1 0 auto;
+}
