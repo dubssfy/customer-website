@@ -354,70 +354,84 @@
   }
 }
 
-@media (max-width: 650px) {
-  .zigzag-timeline-container {
-    gap: 40px;
-  }
-  
-  .zigzag-row {
-
-     flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-  
-  .zigzag-card-container {
-    /*width: 100%;*/
-     width: 100%;
-    max-width: 420px;
-    
-  }
-
-  /* On extremely small screens, we hide the complex S-curves and rely on a simpler vertical line or just the horizontal line through the single column */
-  .s-connector-top,
-  .s-connector-bottom {
-    display: none;
-  }
-
-  /* Single vertical line for mobile */
-  .zigzag-timeline-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 3px;
-   background:  #1E3A8A;
-   
-    transform: translateX(-50%);
-    z-index: 1;
-  }
-
-  /* Hide horizontal line */
-  .row-line {
-    display: none;
-  }
-  .snake-card-inner {
-    width: 100%;
-}
-.process-section {
-    padding: 60px 20px;
-}
-
-.featured-services-section {
-    padding: 60px 20px;
-}
-} 
 @media (max-width: 768px) {
 
-    .services-grid {
-        grid-template-columns: 1fr;
-        justify-items: center;
-    }
+  .features-layout{
+    flex-direction: column;
+  }
 
-    .service-card {
-        width: 100%;
-        max-width: 380px;
-        min-height: auto;
-    }
+  .featured-services-section,
+  .process-section{
+    width:100%;
+    padding:60px 20px;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+    justify-items:center;
+  }
+
+  .service-card{
+    width:100%;
+    max-width:380px;
+    min-height:auto;
+  }
+
+  .process-header{
+    max-width:100%;
+    margin-bottom:40px;
+    top:0;
+  }
+
+  .process-subtitle{
+    font-size:28px;
+  }
+
+  .zigzag-timeline-container{
+    padding:0;
+    gap:24px;
+  }
+
+  .zigzag-row{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    align-items:center;
+  }
+
+  .zigzag-card-container{
+    width:100%;
+    max-width:100%;
+    opacity:1;
+    transform:none;
+  }
+
+  .snake-card-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:15px;
+    padding:24px 18px;
+  }
+
+  .snake-text-content{
+    text-align:center;
+  }
+
+  .snake-step-title{
+    font-size:18px;
+  }
+
+  .snake-step-desc{
+    font-size:14px;
+  }
+
+  .row-line,
+  .s-connector-top,
+  .s-connector-bottom,
+  .zigzag-timeline-container::before{
+    display:none;
+  }
+
 }

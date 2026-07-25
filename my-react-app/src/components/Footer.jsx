@@ -22,16 +22,18 @@ const Footer = () => {
 
       {/* Top Wave */}
       <div className="footer-wave">
-        <svg viewBox="0 0 1440 120">
-          <path className="footer-wave-path"
-            fill="#ffffff"
-            d="M0,64L60,69.3C120,75,240,85,360,74.7C480,64,600,32,720,37.3C840,43,960,85,1080,90.7C1200,96,1320,64,1380,48L1440,32V120H0Z"
-          ></path>
-        </svg>
-      </div>
-      <div className="footer-wave-text">
-          HIGH SCALE | HIGH SPEED | SMART TECHNOLOGY
-          </div>
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path
+      className="footer-wave-path"
+      fill="#ffffff"
+      d="M0,64L60,69.3C120,75,240,85,360,74.7C480,64,600,32,720,37.3C840,43,960,85,1080,90.7C1200,96,1320,64,1380,48L1440,32V120H0Z"
+    />
+  </svg>
+
+  <div className="footer-wave-text">
+    HIGH SCALE | HIGH SPEED | SMART TECHNOLOGY
+  </div>
+</div>
 
       <div className="footer-container">
 
