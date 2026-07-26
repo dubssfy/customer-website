@@ -331,11 +331,11 @@ export default function TestimonialsSection() {
           slidesPerView={3}
           loop={true}
           autoplay={{
-            delay: 5000,
+            delay: 6000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
-          speed={1200}
+          speed={1500}
           pagination={{
             clickable: true,
             dynamicBullets: true
