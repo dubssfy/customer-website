@@ -422,6 +422,42 @@
     padding-top: 20px;
     border-top: 1px solid rgba(30, 58, 138, 0.08);
   }
+  /* Mobile Only */
+.book-now-btn{
+    width: 100%;
+    margin: 20px 0 0;
+    padding: 16px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg,#FFB703,#F59E0B);
+    box-shadow: 0 10px 25px rgba(245,158,11,.35);
+}
+
+.book-now-btn .arrow-icon{
+    font-size: 1.2rem;
+}
+
+.book-now-btn:hover{
+    transform: none;
+    background: linear-gradient(135deg,#FFB703,#F59E0B);
+}
+.book-now-btn{
+    animation: mobileBookNow 1.8s infinite;
+}
+
+@keyframes mobileBookNow{
+
+    0%,100%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.04);
+    }
+
+}
 }
 
 @media (max-width: 480px) {

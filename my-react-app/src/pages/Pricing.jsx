@@ -190,11 +190,11 @@ export default function Pricing() {
   modules={[Navigation, Autoplay]}
   navigation
   autoplay={{
-    delay: 3000,
+    delay: 1500,
     disableOnInteraction: false,
     pauseOnMouseEnter: true,
   }}
-  speed={800}
+  speed={500}
   spaceBetween={20}
   slidesPerView={3}
   centeredSlides={window.innerWidth < 768}

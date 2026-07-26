@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link,useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Clock, ShieldCheck, CheckCircle2, Leaf, Sparkles } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import "./ServiceDetail.css";
@@ -95,10 +95,22 @@ export default function ServiceDetail() {
   if (!service) {
     return (
       <div className="service-error-container">
-        <h2>Service Not Found</h2>
-        <p>The requested service information does not exist.</p>
-        <button onClick={() => navigate("/")} className="back-home-btn">
-          Go Back Home
+       <h1>Commercial Linen Service</h1>
+
+<p>
+  Our Commercial Linen service is available for hotels, hospitals,
+  restaurants, hostels, spas, and other businesses requiring
+  professional bulk laundry.
+</p>
+
+<p>
+  For Commercial Linen enquiries, please{" "}
+ 
+</p>
+
+
+        <button onClick={() => navigate("/Contact")} className="back-home-btn">
+           Contact Us
         </button>
       </div>
     );
