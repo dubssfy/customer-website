@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Pricing.css";
@@ -34,62 +34,45 @@ export default function Pricing() {
   const [activeTab, setActiveTab] = useState("");
   const [expandedCards, setExpandedCards] = useState({});
 
+  // Refs for touch-pause logic
   const swiperRef = useRef(null);
-  const isHoveredRef = useRef(false);
-  const isInteractingRef = useRef(false);
-  const autoplayTimeoutRef = useRef(null);
+  const resumeTimerRef = useRef(null);
 
-  const updateAutoplay = (swiper) => {
-    const activeSwiper = swiper || swiperRef.current;
-    if (!activeSwiper || !activeSwiper.autoplay || activeSwiper.destroyed) return;
-
-    if (autoplayTimeoutRef.current) {
-      clearTimeout(autoplayTimeoutRef.current);
-      autoplayTimeoutRef.current = null;
-    }
-
-    if (isHoveredRef.current || isInteractingRef.current) {
-      if (activeSwiper.autoplay.running) {
-        activeSwiper.autoplay.stop();
-      }
-    } else {
-      if (!activeSwiper.autoplay.running) {
-        activeSwiper.autoplay.start();
-      }
-    }
-  };
-
-  const handleTouchStart = (swiper) => {
-    isInteractingRef.current = true;
-    updateAutoplay(swiper);
-  };
-
-  const handleTouchEnd = (swiper) => {
-    isInteractingRef.current = false;
-    if (autoplayTimeoutRef.current) {
-      clearTimeout(autoplayTimeoutRef.current);
-    }
-    autoplayTimeoutRef.current = setTimeout(() => {
-      updateAutoplay(swiper);
-    }, 2500);
-  };
-
-  const handleMouseEnter = () => {
-    isHoveredRef.current = true;
-    updateAutoplay();
-  };
-
-  const handleMouseLeave = () => {
-    isHoveredRef.current = false;
-    updateAutoplay();
-  };
-
+  // Cleanup timer on unmount
   useEffect(() => {
     return () => {
-      if (autoplayTimeoutRef.current) {
-        clearTimeout(autoplayTimeoutRef.current);
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
       }
     };
+  }, []);
+
+  // When user starts touching/dragging — pause autoplay immediately
+  const handleTouchStart = useCallback(() => {
+    // Clear any pending resume timer
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    const swiper = swiperRef.current;
+    if (swiper && swiper.autoplay && !swiper.destroyed) {
+      swiper.autoplay.stop();
+    }
+  }, []);
+
+  // When user finishes touching/dragging — resume after 2.5s delay
+  const handleTouchEnd = useCallback(() => {
+    // Clear any existing timer first
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+    }
+    resumeTimerRef.current = setTimeout(() => {
+      const swiper = swiperRef.current;
+      if (swiper && swiper.autoplay && !swiper.destroyed) {
+        swiper.autoplay.start();
+      }
+      resumeTimerRef.current = null;
+    }, 2500);
   }, []);
 
   useEffect(() => {
@@ -246,56 +229,53 @@ export default function Pricing() {
           No prices available{activeTab ? ` for ${activeTab}` : ""}.
         </div>
       ) : (
-       
-    <div 
-      className="pricing-swiper-wrapper"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Swiper
-        key={activeTab}
-        modules={[Navigation, Autoplay]}
-        navigation={true}
-        watchOverflow={false}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        autoplay={{
-          delay: 1000,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: false,
-          reverseDirection: false,
-        }}
-        speed={1000}
-        loop={displayGroups.length > 3}
-        spaceBetween={20}
-        slidesPerView={3}
-        centeredSlides={window.innerWidth < 768}
-        breakpoints={{
-          320: {
-            slidesPerView: 1.08,
-            centeredSlides: true,
-            spaceBetween: 12,
-          },
-          480: {
-            slidesPerView: 1.15,
-            centeredSlides: true,
-            spaceBetween: 15,
-          },
-          768: {
-            slidesPerView: 2,
-            centeredSlides: false,
-            spaceBetween: 20,
-          },
-          1200: {
-            slidesPerView: 3,
-            centeredSlides: false,
-            spaceBetween: 25,
-          },
-        }}
-      >
+        <Swiper
+          key={activeTab}
+          modules={[Navigation, Autoplay]}
+          navigation={true}
+          watchOverflow={false}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onSlideChangeTransitionEnd={(swiper) => {
+            // After any interaction-triggered slide change, ensure autoplay resumes
+            // (this covers edge cases where disableOnInteraction stops it)
+          }}
+          autoplay={{
+            delay: 4500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={1200}
+          loop={displayGroups.length > 3}
+          spaceBetween={20}
+          slidesPerView={3}
+          centeredSlides={window.innerWidth < 768}
+          breakpoints={{
+            320: {
+              slidesPerView: 1.08,
+              centeredSlides: true,
+              spaceBetween: 12,
+            },
+            480: {
+              slidesPerView: 1.15,
+              centeredSlides: true,
+              spaceBetween: 15,
+            },
+            768: {
+              slidesPerView: 2,
+              centeredSlides: false,
+              spaceBetween: 20,
+            },
+            1200: {
+              slidesPerView: 3,
+              centeredSlides: false,
+              spaceBetween: 25,
+            },
+          }}
+        >
   {/* Mobile Navigation */}
 
           {displayGroups.map((card, index) => {
@@ -355,7 +335,6 @@ export default function Pricing() {
             );
           })}
         </Swiper>
-      </div>
       )}
     </section>
   );

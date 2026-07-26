@@ -13,10 +13,19 @@ import {
   FaInstagram,
   FaWhatsapp,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleTestimonialsClick = (e) => {
+    e.preventDefault();
+    navigate("/about");
+    // Always scroll to top, even if already on /about
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  };
+
   return (
     <footer className="footer">
 
@@ -83,7 +92,7 @@ const Footer = () => {
           <h3>Company</h3>
 
           <Link to="/">Home</Link>
-          <Link to="/about">Testimonials</Link>
+          <a href="/about" onClick={handleTestimonialsClick}>Testimonials</a>
           <Link to="/pricing">Pricing</Link>
           <Link to="/features">Features</Link>
           <Link to="/contact">Contact</Link>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Star, Quote } from "lucide-react";
@@ -48,62 +48,45 @@ const reviews = [
 ];
 
 export default function TestimonialsSection() {
+  // Refs for touch-pause logic
   const swiperRef = useRef(null);
-  const isHoveredRef = useRef(false);
-  const isInteractingRef = useRef(false);
-  const autoplayTimeoutRef = useRef(null);
+  const resumeTimerRef = useRef(null);
 
-  const updateAutoplay = (swiper) => {
-    const activeSwiper = swiper || swiperRef.current;
-    if (!activeSwiper || !activeSwiper.autoplay || activeSwiper.destroyed) return;
-
-    if (autoplayTimeoutRef.current) {
-      clearTimeout(autoplayTimeoutRef.current);
-      autoplayTimeoutRef.current = null;
-    }
-
-    if (isHoveredRef.current || isInteractingRef.current) {
-      if (activeSwiper.autoplay.running) {
-        activeSwiper.autoplay.stop();
-      }
-    } else {
-      if (!activeSwiper.autoplay.running) {
-        activeSwiper.autoplay.start();
-      }
-    }
-  };
-
-  const handleTouchStart = (swiper) => {
-    isInteractingRef.current = true;
-    updateAutoplay(swiper);
-  };
-
-  const handleTouchEnd = (swiper) => {
-    isInteractingRef.current = false;
-    if (autoplayTimeoutRef.current) {
-      clearTimeout(autoplayTimeoutRef.current);
-    }
-    autoplayTimeoutRef.current = setTimeout(() => {
-      updateAutoplay(swiper);
-    }, 2500);
-  };
-
-  const handleMouseEnter = () => {
-    isHoveredRef.current = true;
-    updateAutoplay();
-  };
-
-  const handleMouseLeave = () => {
-    isHoveredRef.current = false;
-    updateAutoplay();
-  };
-
+  // Cleanup timer on unmount
   useEffect(() => {
     return () => {
-      if (autoplayTimeoutRef.current) {
-        clearTimeout(autoplayTimeoutRef.current);
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
       }
     };
+  }, []);
+
+  // When user starts touching/dragging — pause autoplay immediately
+  const handleTouchStart = useCallback(() => {
+    // Clear any pending resume timer
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    const swiper = swiperRef.current;
+    if (swiper && swiper.autoplay && !swiper.destroyed) {
+      swiper.autoplay.stop();
+    }
+  }, []);
+
+  // When user finishes touching/dragging — resume after 2.5s delay
+  const handleTouchEnd = useCallback(() => {
+    // Clear any existing timer first
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+    }
+    resumeTimerRef.current = setTimeout(() => {
+      const swiper = swiperRef.current;
+      if (swiper && swiper.autoplay && !swiper.destroyed) {
+        swiper.autoplay.start();
+      }
+      resumeTimerRef.current = null;
+    }, 2500);
   }, []);
 
   return (
@@ -115,48 +98,43 @@ export default function TestimonialsSection() {
           <div className="header-line"></div>
         </div>
 
-        <div 
-          className="testimonials-swiper-wrapper"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+        <Swiper
+          modules={[Autoplay, Pagination, Navigation]}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          spaceBetween={30}
+          slidesPerView={3}
+          loop={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={1200}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true
+          }}
+          navigation={true}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 20
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 25
+            },
+            1100: {
+              slidesPerView: 3,
+              spaceBetween: 30
+            }
+          }}
+          className="testimonials-swiper"
         >
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-            }}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            spaceBetween={30}
-            slidesPerView={3}
-            loop={true}
-            autoplay={{
-              delay: 1000,
-              disableOnInteraction: true,
-              pauseOnMouseEnter: false
-            }}
-            speed={1000}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true
-            }}
-            navigation={true}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 20
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 25
-              },
-              1100: {
-                slidesPerView: 3,
-                spaceBetween: 30
-              }
-            }}
-            className="testimonials-swiper"
-          >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
               <motion.div 
@@ -201,7 +179,6 @@ export default function TestimonialsSection() {
             </SwiperSlide>
           ))}
         </Swiper>
-        </div>
       </div>
     </section>
   );
