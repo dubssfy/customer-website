@@ -188,12 +188,16 @@ export default function Pricing() {
       ) : (
        <Swiper
   modules={[Navigation, Autoplay]}
-  navigation
-  autoplay={{
-    delay: 1500,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  }}
+  navigation={window.innerWidth < 768}
+  autoplay={
+    window.innerWidth >= 768
+      ? {
+          delay: 1500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }
+      : false
+  }
   speed={500}
   spaceBetween={20}
   slidesPerView={3}
