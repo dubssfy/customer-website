@@ -220,7 +220,7 @@ import "./About.css";*/
     </div>
   );
 }*/}
-import React from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Star, Quote } from "lucide-react";
@@ -229,7 +229,7 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "./About.css";
+import "./TestimonialsSection.css";
 
 const reviews = [
   {
@@ -240,7 +240,7 @@ const reviews = [
     text: "I absolutely really so loved how spotless, fresh and neatly packed my blankets and curtains came back. No dust, no dullness, and colours stayed safe like new. Swaccham made my home care premium, and I'm definitely sticking with them."
   },
   {
-    name: "Satish Kokane",
+    name: "Satish KOkane",
     role: "Our Customer",
     //image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&q=80",
     rating: 5,
@@ -254,7 +254,7 @@ const reviews = [
     text: "The curtains and sofa covers I sent were returned spotless, neatly packed, and smelling wonderfully fresh. Dust and dullness vanished without harming fabric colour or texture. Swaccham made my home feel brighter, cleaner, refreshed with real care!"
   },
   {
-    name: "Sayali Phadake",
+    name: "Sayali Fadake",
     role: "Our Customer",
    // image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&q=80",
     rating: 5,
@@ -270,6 +270,47 @@ const reviews = [
 ];
 
 export default function TestimonialsSection() {
+  // Refs for touch-pause logic
+  const swiperRef = useRef(null);
+  const resumeTimerRef = useRef(null);
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
+
+  // When user starts touching/dragging — pause autoplay immediately
+  const handleTouchStart = useCallback(() => {
+    // Clear any pending resume timer
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    const swiper = swiperRef.current;
+    if (swiper && swiper.autoplay && !swiper.destroyed) {
+      swiper.autoplay.stop();
+    }
+  }, []);
+
+  // When user finishes touching/dragging — resume after 2.5s delay
+  const handleTouchEnd = useCallback(() => {
+    // Clear any existing timer first
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+    }
+    resumeTimerRef.current = setTimeout(() => {
+      const swiper = swiperRef.current;
+      if (swiper && swiper.autoplay && !swiper.destroyed) {
+        swiper.autoplay.start();
+      }
+      resumeTimerRef.current = null;
+    }, 2500);
+  }, []);
+
   return (
     <section className="testimonials-section">
       <div className="testimonials-container">
@@ -281,14 +322,20 @@ export default function TestimonialsSection() {
 
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           spaceBetween={30}
           slidesPerView={3}
           loop={true}
           autoplay={{
-            delay: 4000,
+            delay: 5000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true
+            pauseOnMouseEnter: true,
           }}
+          speed={1200}
           pagination={{
             clickable: true,
             dynamicBullets: true
