@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Pricing.css";
@@ -33,6 +33,35 @@ export default function Pricing() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("");
   const [expandedCards, setExpandedCards] = useState({});
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+  if (!swiperRef.current) return;
+
+  let direction = 1;
+
+  const timer = setInterval(() => {
+    const swiper = swiperRef.current;
+
+    if (!swiper) return;
+
+    if (direction === 1) {
+      swiper.slideNext();
+
+      if (swiper.isEnd) {
+        direction = -1;
+      }
+    } else {
+      swiper.slidePrev();
+
+      if (swiper.isBeginning) {
+        direction = 1;
+      }
+    }
+  }, 2000);
+
+  return () => clearInterval(timer);
+}, [displayGroups]);
 
   useEffect(() => {
     fetchPricing();
@@ -190,18 +219,14 @@ export default function Pricing() {
       ) : (
        
     <Swiper
-  modules={[Navigation, Autoplay]}
-  navigation
-  autoplay={{
-    delay: 1500,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  }}
+  onSwiper={(swiper) => (swiperRef.current = swiper)}
+  modules={[Autoplay]}
+  autoplay={false}
   speed={500}
   spaceBetween={20}
   slidesPerView={3}
   centeredSlides={window.innerWidth < 768}
-  loop={displayGroups.length > 1}
+  loop={false}
   breakpoints={{
     320: {
       slidesPerView: 1.08,
@@ -225,60 +250,7 @@ export default function Pricing() {
     },
   }}
 >
-  {/* Mobile Navigation */}
-<div className="pricing-mobile-navigation">
-  <button className="pricing-prev">
-    <ChevronLeft size={24}/>
-  </button>
 
-  <button className="pricing-next">
-    <ChevronRight size={24}/>
-  </button>
-</div>
-
-<Swiper
-  modules={[Navigation, Autoplay]}
-  navigation={{
-    prevEl: ".pricing-prev",
-    nextEl: ".pricing-next",
-  }}
-  autoplay={
-    window.innerWidth <= 768
-      ? false
-      : {
-          delay: 1500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }
-  }
-  speed={500}
-  spaceBetween={20}
-  slidesPerView={3}
-  centeredSlides={window.innerWidth < 768}
-  loop={displayGroups.length > 1}
-  breakpoints={{
-    320: {
-      slidesPerView: 1.08,
-      centeredSlides: true,
-      spaceBetween: 12,
-    },
-    480: {
-      slidesPerView: 1.15,
-      centeredSlides: true,
-      spaceBetween: 15,
-    },
-    768: {
-      slidesPerView: 2,
-      centeredSlides: false,
-      spaceBetween: 20,
-    },
-    1200: {
-      slidesPerView: 3,
-      centeredSlides: false,
-      spaceBetween: 25,
-    },
-  }}
-></Swiper>
           {displayGroups.map((card, index) => {
             const expanded = expandedCards[card.title];
             const visibleItems = expanded ? card.items : card.items.slice(0, 10);
