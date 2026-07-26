@@ -229,7 +229,7 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "./TestimonialsSection.css";
+import "./About.css";
 
 const reviews = [
   {
