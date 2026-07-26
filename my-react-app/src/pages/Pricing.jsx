@@ -186,18 +186,42 @@ export default function Pricing() {
           No prices available{activeTab ? ` for ${activeTab}` : ""}.
         </div>
       ) : (
-        <Swiper
-          modules={[Navigation]}
-          navigation
-          spaceBetween={25}
-          slidesPerView={3}
-          loop={displayGroups.length > 3}
-          breakpoints={{
-            320: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1200: { slidesPerView: 3 },
-          }}
-        >
+       <Swiper
+  modules={[Navigation, Autoplay]}
+  navigation
+  autoplay={{
+    delay: 3000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
+  speed={800}
+  spaceBetween={20}
+  slidesPerView={3}
+  centeredSlides={window.innerWidth < 768}
+  loop={displayGroups.length > 1}
+  breakpoints={{
+    320: {
+      slidesPerView: 1.08,
+      centeredSlides: true,
+      spaceBetween: 12,
+    },
+    480: {
+      slidesPerView: 1.15,
+      centeredSlides: true,
+      spaceBetween: 15,
+    },
+    768: {
+      slidesPerView: 2,
+      centeredSlides: false,
+      spaceBetween: 20,
+    },
+    1200: {
+      slidesPerView: 3,
+      centeredSlides: false,
+      spaceBetween: 25,
+    },
+  }}
+>
           {displayGroups.map((card, index) => {
             const expanded = expandedCards[card.title];
             const visibleItems = expanded ? card.items : card.items.slice(0, 10);

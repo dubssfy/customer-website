@@ -243,7 +243,8 @@
 /* ==================== PROMISE ==================== */
 .promise-section {
   background: linear-gradient(rgba(30, 58, 138, 0.95), rgba(30, 58, 138, 0.95)), url('/laundry2.jpg') center/cover fixed;
-  padding: 150px 20px;
+  padding: 80px 20px;
+  
 }
 
 .promise-quote {
