@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Pricing.css";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { api } from "../services/api";
@@ -10,6 +11,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { TbTextSize } from "react-icons/tb";
+
 
 const SERVICE_ICONS = {
   "Dry Cleaning":  "👔",
@@ -186,18 +188,15 @@ export default function Pricing() {
           No prices available{activeTab ? ` for ${activeTab}` : ""}.
         </div>
       ) : (
-       <Swiper
+       
+    <Swiper
   modules={[Navigation, Autoplay]}
-  navigation={window.innerWidth < 768}
-  autoplay={
-    window.innerWidth >= 768
-      ? {
-          delay: 1500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }
-      : false
-  }
+  navigation
+  autoplay={{
+    delay: 1500,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
   speed={500}
   spaceBetween={20}
   slidesPerView={3}
@@ -226,6 +225,60 @@ export default function Pricing() {
     },
   }}
 >
+  {/* Mobile Navigation */}
+<div className="pricing-mobile-navigation">
+  <button className="pricing-prev">
+    <ChevronLeft size={24}/>
+  </button>
+
+  <button className="pricing-next">
+    <ChevronRight size={24}/>
+  </button>
+</div>
+
+<Swiper
+  modules={[Navigation, Autoplay]}
+  navigation={{
+    prevEl: ".pricing-prev",
+    nextEl: ".pricing-next",
+  }}
+  autoplay={
+    window.innerWidth <= 768
+      ? false
+      : {
+          delay: 1500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }
+  }
+  speed={500}
+  spaceBetween={20}
+  slidesPerView={3}
+  centeredSlides={window.innerWidth < 768}
+  loop={displayGroups.length > 1}
+  breakpoints={{
+    320: {
+      slidesPerView: 1.08,
+      centeredSlides: true,
+      spaceBetween: 12,
+    },
+    480: {
+      slidesPerView: 1.15,
+      centeredSlides: true,
+      spaceBetween: 15,
+    },
+    768: {
+      slidesPerView: 2,
+      centeredSlides: false,
+      spaceBetween: 20,
+    },
+    1200: {
+      slidesPerView: 3,
+      centeredSlides: false,
+      spaceBetween: 25,
+    },
+  }}
+></Swiper>
           {displayGroups.map((card, index) => {
             const expanded = expandedCards[card.title];
             const visibleItems = expanded ? card.items : card.items.slice(0, 10);

@@ -210,6 +210,46 @@ tbody tr:hover { background: rgba(248, 250, 252, 0.8); }
 .pricing-tabs-swiper .tab-btn {
   white-space: nowrap;
 }
+/* Hide navigation on desktop */
+.pricing-mobile-navigation{
+    display:none;
+}
+
+/* Mobile only */
+@media (max-width:768px){
+
+    .pricing-mobile-navigation{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:18px;
+        margin-bottom:20px;
+    }
+
+    .pricing-prev,
+    .pricing-next{
+        width:48px;
+        height:48px;
+        border:none;
+        border-radius:50%;
+        background:#16a34a;
+        color:#fff;
+        font-size:22px;
+        font-weight:bold;
+        cursor:pointer;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        transition:.3s;
+        box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+
+    .pricing-prev:hover,
+    .pricing-next:hover{
+        background:#15803d;
+        transform:scale(1.08);
+    }
+}
 
 @media (max-width:768px){
 
