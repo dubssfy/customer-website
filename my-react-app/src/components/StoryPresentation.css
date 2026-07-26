@@ -475,7 +475,14 @@
 .section-header .subtitle{
     font-size:1rem;
 }
-  .promise-quote { font-size: 1.5rem; }
+ .promise-section{
+    padding:30px 16px;
+}
+
+.promise-quote{
+    font-size:1.15rem;
+    line-height:1.4;
+}
   .cta-content h2 { font-size: 2rem; }
   .mv-grid { grid-template-columns: 1fr; }
   .process-step-card { flex: 0 0 140px; }
