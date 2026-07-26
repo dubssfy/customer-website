@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Star, Quote } from "lucide-react";
@@ -48,6 +48,64 @@ const reviews = [
 ];
 
 export default function TestimonialsSection() {
+  const swiperRef = useRef(null);
+  const isHoveredRef = useRef(false);
+  const isInteractingRef = useRef(false);
+  const autoplayTimeoutRef = useRef(null);
+
+  const updateAutoplay = (swiper) => {
+    const activeSwiper = swiper || swiperRef.current;
+    if (!activeSwiper || !activeSwiper.autoplay || activeSwiper.destroyed) return;
+
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
+    }
+
+    if (isHoveredRef.current || isInteractingRef.current) {
+      if (activeSwiper.autoplay.running) {
+        activeSwiper.autoplay.stop();
+      }
+    } else {
+      if (!activeSwiper.autoplay.running) {
+        activeSwiper.autoplay.start();
+      }
+    }
+  };
+
+  const handleTouchStart = (swiper) => {
+    isInteractingRef.current = true;
+    updateAutoplay(swiper);
+  };
+
+  const handleTouchEnd = (swiper) => {
+    isInteractingRef.current = false;
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+    }
+    autoplayTimeoutRef.current = setTimeout(() => {
+      updateAutoplay(swiper);
+    }, 2500);
+  };
+
+  const handleMouseEnter = () => {
+    isHoveredRef.current = true;
+    updateAutoplay();
+  };
+
+  const handleMouseLeave = () => {
+    isHoveredRef.current = false;
+    updateAutoplay();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (autoplayTimeoutRef.current) {
+        clearTimeout(autoplayTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="testimonials-section">
       <div className="testimonials-container">
@@ -57,37 +115,48 @@ export default function TestimonialsSection() {
           <div className="header-line"></div>
         </div>
 
-        <Swiper
-          modules={[Autoplay, Pagination, Navigation]}
-          spaceBetween={30}
-          slidesPerView={3}
-          loop={true}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-          }}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true
-          }}
-          navigation={true}
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 20
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 25
-            },
-            1100: {
-              slidesPerView: 3,
-              spaceBetween: 30
-            }
-          }}
-          className="testimonials-swiper"
+        <div 
+          className="testimonials-swiper-wrapper"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            spaceBetween={30}
+            slidesPerView={3}
+            loop={true}
+            autoplay={{
+              delay: 5500,
+              disableOnInteraction: true,
+              pauseOnMouseEnter: false
+            }}
+            speed={1200}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true
+            }}
+            navigation={true}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 25
+              },
+              1100: {
+                slidesPerView: 3,
+                spaceBetween: 30
+              }
+            }}
+            className="testimonials-swiper"
+          >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
               <motion.div 
@@ -132,6 +201,7 @@ export default function TestimonialsSection() {
             </SwiperSlide>
           ))}
         </Swiper>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Pricing.css";
@@ -33,6 +33,64 @@ export default function Pricing() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("");
   const [expandedCards, setExpandedCards] = useState({});
+
+  const swiperRef = useRef(null);
+  const isHoveredRef = useRef(false);
+  const isInteractingRef = useRef(false);
+  const autoplayTimeoutRef = useRef(null);
+
+  const updateAutoplay = (swiper) => {
+    const activeSwiper = swiper || swiperRef.current;
+    if (!activeSwiper || !activeSwiper.autoplay || activeSwiper.destroyed) return;
+
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
+    }
+
+    if (isHoveredRef.current || isInteractingRef.current) {
+      if (activeSwiper.autoplay.running) {
+        activeSwiper.autoplay.stop();
+      }
+    } else {
+      if (!activeSwiper.autoplay.running) {
+        activeSwiper.autoplay.start();
+      }
+    }
+  };
+
+  const handleTouchStart = (swiper) => {
+    isInteractingRef.current = true;
+    updateAutoplay(swiper);
+  };
+
+  const handleTouchEnd = (swiper) => {
+    isInteractingRef.current = false;
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+    }
+    autoplayTimeoutRef.current = setTimeout(() => {
+      updateAutoplay(swiper);
+    }, 2500);
+  };
+
+  const handleMouseEnter = () => {
+    isHoveredRef.current = true;
+    updateAutoplay();
+  };
+
+  const handleMouseLeave = () => {
+    isHoveredRef.current = false;
+    updateAutoplay();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (autoplayTimeoutRef.current) {
+        clearTimeout(autoplayTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchPricing();
@@ -189,45 +247,55 @@ export default function Pricing() {
         </div>
       ) : (
        
-    <Swiper
-  key={activeTab}
-  modules={[Navigation, Autoplay]}
-  navigation={true}
-  watchOverflow={false}
-  autoplay={{
-    delay: 1500,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-    reverseDirection: false,
-  }}
-  speed={600}
-  loop={displayGroups.length > 3}
-  spaceBetween={20}
-  slidesPerView={3}
-  centeredSlides={window.innerWidth < 768}
-  breakpoints={{
-    320: {
-      slidesPerView: 1.08,
-      centeredSlides: true,
-      spaceBetween: 12,
-    },
-    480: {
-      slidesPerView: 1.15,
-      centeredSlides: true,
-      spaceBetween: 15,
-    },
-    768: {
-      slidesPerView: 2,
-      centeredSlides: false,
-      spaceBetween: 20,
-    },
-    1200: {
-      slidesPerView: 3,
-      centeredSlides: false,
-      spaceBetween: 25,
-    },
-  }}
->
+    <div 
+      className="pricing-swiper-wrapper"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Swiper
+        key={activeTab}
+        modules={[Navigation, Autoplay]}
+        navigation={true}
+        watchOverflow={false}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        autoplay={{
+          delay: 4500,
+          disableOnInteraction: true,
+          pauseOnMouseEnter: false,
+          reverseDirection: false,
+        }}
+        speed={1200}
+        loop={displayGroups.length > 3}
+        spaceBetween={20}
+        slidesPerView={3}
+        centeredSlides={window.innerWidth < 768}
+        breakpoints={{
+          320: {
+            slidesPerView: 1.08,
+            centeredSlides: true,
+            spaceBetween: 12,
+          },
+          480: {
+            slidesPerView: 1.15,
+            centeredSlides: true,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 2,
+            centeredSlides: false,
+            spaceBetween: 20,
+          },
+          1200: {
+            slidesPerView: 3,
+            centeredSlides: false,
+            spaceBetween: 25,
+          },
+        }}
+      >
   {/* Mobile Navigation */}
 
           {displayGroups.map((card, index) => {
@@ -287,6 +355,7 @@ export default function Pricing() {
             );
           })}
         </Swiper>
+      </div>
       )}
     </section>
   );
