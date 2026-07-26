@@ -197,6 +197,33 @@ tbody tr:hover { background: rgba(248, 250, 252, 0.8); }
   animation: growLine 1s ease forwards;
   animation-delay: 1s;
 }
+.pricing-tabs-swiper {
+  width: 100%;
+  margin-bottom: 30px;
+  padding: 5px 0 10px;
+}
+
+.pricing-tabs-swiper .swiper-slide {
+  width: auto !important;
+}
+
+.pricing-tabs-swiper .tab-btn {
+  white-space: nowrap;
+}
+
+@media (max-width:768px){
+
+  .pricing-tabs-swiper{
+    padding: 5px 10px 15px;
+  }
+
+  .pricing-tabs-swiper .tab-btn{
+    padding:10px 18px;
+    font-size:14px;
+    border-radius:30px;
+  }
+
+}
 
 /* Text Reveal */
 
@@ -238,5 +265,288 @@ tbody tr:hover { background: rgba(248, 250, 252, 0.8); }
       width:100%;
       opacity:1;
   }
+
+}
+/* ========================= */
+/* MOBILE RESPONSIVE PRICING */
+/* ========================= */
+
+@media screen and (max-width:768px){
+
+    .pricing-section{
+        padding:50px 12px;
+    }
+
+    .pricing-heading{
+        font-size:1.8rem;
+        margin-bottom:25px;
+        line-height:1.3;
+    }
+
+    /* ---------------- Tabs ---------------- */
+
+    .pricing-tabs{
+        display:flex;
+        overflow-x:auto;
+        gap:10px;
+        padding:6px 4px 14px;
+        margin-bottom:20px;
+        justify-content:flex-start;
+
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    .pricing-tabs::-webkit-scrollbar{
+        display:none;
+    }
+
+    .tab-btn{
+
+        flex:none;
+        white-space:nowrap;
+
+        padding:10px 18px;
+
+        font-size:14px;
+
+        border-radius:40px;
+
+        scroll-snap-align:center;
+    }
+
+    /* --------------- Marquee --------------- */
+
+    .pricing-section-ticker{
+
+        margin-bottom:20px;
+
+        padding:10px 0;
+
+    }
+
+    .pricing-section-ticker-content{
+
+        font-size:13px;
+
+        padding-right:50px;
+
+    }
+
+    .ticker-link{
+
+        font-size:15px !important;
+
+    }
+
+    /* --------------- Swiper --------------- */
+
+    .swiper{
+
+        padding:10px 0 45px;
+
+        overflow:visible;
+
+    }
+
+    .swiper-slide{
+
+        display:flex;
+
+        justify-content:center;
+
+        padding:6px;
+
+    }
+
+    /* --------------- Cards --------------- */
+
+    .price-card{
+
+        width:100%;
+
+        max-width:340px;
+
+        border-radius:18px;
+
+    }
+
+    .card-top{
+
+        padding:18px 15px;
+
+        gap:10px;
+
+    }
+
+    .card-top h3{
+
+        font-size:1rem;
+
+    }
+
+    .card-icon{
+
+        width:42px;
+
+        height:42px;
+
+        font-size:20px;
+
+    }
+
+    /* ---------------- Table ---------------- */
+
+    table{
+
+        width:95%;
+
+    }
+
+    thead th{
+
+        padding:10px 8px;
+
+        font-size:12px;
+
+    }
+
+    tbody td{
+
+        padding:10px 8px;
+
+        font-size:13px;
+
+    }
+
+    tbody td:first-child{
+
+        width:65%;
+
+        word-break:break-word;
+
+    }
+
+    tbody td:last-child{
+
+        width:35%;
+
+        text-align:right;
+
+    }
+
+    .old-price{
+
+        display:block;
+
+        font-size:11px;
+
+        margin-right:0;
+
+    }
+
+    .new-price{
+
+        display:block;
+
+        font-size:15px;
+
+    }
+
+    /* ---------------- Note ---------------- */
+
+    .note{
+
+        font-size:11px;
+
+        padding:14px;
+
+        line-height:1.5;
+
+    }
+
+    /* --------------- Button --------------- */
+
+    .view-btn{
+
+        width:140px;
+
+        font-size:13px;
+
+        padding:10px 16px;
+
+        margin-bottom:18px;
+
+    }
+
+    /* -------- Navigation Buttons ---------- */
+
+    .swiper-button-next,
+
+    .swiper-button-prev{
+
+        width:34px !important;
+
+        height:34px !important;
+
+    }
+
+    .swiper-button-next::after,
+
+    .swiper-button-prev::after{
+
+        font-size:12px !important;
+
+    }
+
+}
+
+
+/* Small phones */
+
+@media screen and (max-width:480px){
+
+    .pricing-heading{
+
+        font-size:1.55rem;
+
+    }
+
+    .price-card{
+
+        max-width:315px;
+
+    }
+
+    .card-top{
+
+        flex-direction:column;
+
+    }
+
+    .card-icon{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+    tbody td{
+
+        font-size:12px;
+
+        padding:9px 6px;
+
+    }
+
+    .new-price{
+
+        font-size:14px;
+
+    }
 
 }

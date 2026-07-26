@@ -5,7 +5,7 @@ import FloatingBubbles from "../components/FloatingBubbles";
 import { api } from "../services/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -134,17 +134,33 @@ export default function Pricing() {
 
       {/* Category Tabs — dynamically generated from DB */}
       {categories.length > 0 && (
-        <div className="pricing-tabs">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`tab-btn ${activeTab === cat ? "active" : ""}`}
-              onClick={() => setActiveTab(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        <Swiper
+  modules={[Autoplay]}
+  className="pricing-tabs-swiper"
+  slidesPerView="auto"
+  spaceBetween={12}
+  freeMode={true}
+  loop={categories.length > 4}
+  autoplay={{
+    delay: 2500,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
+>
+  {categories.map((cat) => (
+    <SwiperSlide
+      key={cat}
+      style={{ width: "auto" }}
+    >
+      <button
+        className={`tab-btn ${activeTab === cat ? "active" : ""}`}
+        onClick={() => setActiveTab(cat)}
+      >
+        {cat}
+      </button>
+    </SwiperSlide>
+  ))}
+</Swiper>
       )}
 
       {/* Horizontally scrolling marquee below categories */}

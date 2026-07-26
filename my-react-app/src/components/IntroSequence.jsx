@@ -12,6 +12,7 @@ export default function IntroSequence({ onComplete }) {
 
   const [particles, setParticles] = useState([]);
   const [bubbles, setBubbles] = useState([]);
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     // Generate random floating bubbles for the white background
@@ -48,12 +49,12 @@ export default function IntroSequence({ onComplete }) {
     tl.fromTo(
       machineRef.current,
       { scale: 0.5, opacity: 0, y: 50 },
-      { scale: 0.8, opacity: 1, y: 0, duration: 2, ease: "power3.out" }
+      { scale: isMobile ? 0.65 : 0.8, opacity: 1, y: 0, duration: 2, ease: "power3.out" }
     )
     // 2. Camera zoom effect (machine moves toward user)
     .to(
       machineRef.current,
-      { scale: 2.2, y: "15%", duration: 4, ease: "power2.inOut" },
+      { scale: isMobile ? 1.5 : 2.2,y: isMobile ? "5%" : "15%", duration: 4, ease: "power2.inOut" },
       "-=0.5"
     )
     // 3. Pause briefly, vibrate slightly, door glows

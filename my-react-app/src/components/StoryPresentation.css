@@ -77,7 +77,7 @@
 /* ==================== HERO SECTION ==================== */
 .story-hero-section {
   position: relative;
-  min-height: 100dvh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -464,7 +464,16 @@
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
-  .section-header h2 { font-size: 2rem; }
+  .section-header{
+    margin-bottom:35px;
+}
+  .section-header h2{
+    font-size:2rem;
+    letter-spacing:1px;
+}
+.section-header .subtitle{
+    font-size:1rem;
+}
   .promise-quote { font-size: 1.5rem; }
   .cta-content h2 { font-size: 2rem; }
   .mv-grid { grid-template-columns: 1fr; }
@@ -473,4 +482,42 @@
     padding: 16px 36px;
     font-size: 1.2rem;
   }
+}
+@media (max-width:768px){
+
+.story-hero-section{
+    min-height:650px;
+    padding:70px 0 40px;
+}
+
+.story-bg-carousel{
+    height:300px;
+}
+
+.story-bg-overlay{
+    background:rgba(255,255,255,.92);
+}
+
+}
+@media (max-width:768px){
+
+.story-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.story-card{
+    padding:22px;
+    border-radius:18px;
+}
+
+.story-card h3{
+    font-size:1.2rem;
+}
+
+.story-card p{
+    font-size:.9rem;
+    line-height:1.6;
+}
+
 }
