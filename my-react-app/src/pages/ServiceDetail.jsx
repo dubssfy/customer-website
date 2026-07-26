@@ -98,8 +98,8 @@ export default function ServiceDetail() {
        <h1>Commercial Linen Service</h1>
 
 <p>
-  Our Commercial Linen service is available for hotels, hospitals,
-  restaurants, hostels, spas, and other businesses requiring
+  Our Commercial Linen service is available for hotels
+  and other businesses requiring
   professional bulk laundry.
 </p>
 

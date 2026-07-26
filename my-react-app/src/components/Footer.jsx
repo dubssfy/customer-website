@@ -160,15 +160,15 @@ const Footer = () => {
 
         <div className="footer-social">
 
-          <a href="/">
+          <a href="https://www.facebook.com/profile.php?id=61588347518668">
             <FaFacebookF size={20} />
           </a>
 
-          <a href="/">
+          <a href="https://www.instagram.com/swachham.laundering/">
             <FaInstagram size={20} />
           </a>
 
-          <a href="/">
+          <a href="https://wa.me/919684029991">
             <FaWhatsapp size={20} />
           </a>
 
