@@ -263,12 +263,12 @@ export default function Pricing() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         autoplay={{
-          delay: 4500,
+          delay: 1000,
           disableOnInteraction: true,
           pauseOnMouseEnter: false,
           reverseDirection: false,
         }}
-        speed={1200}
+        speed={1000}
         loop={displayGroups.length > 3}
         spaceBetween={20}
         slidesPerView={3}
