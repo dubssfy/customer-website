@@ -595,25 +595,36 @@ tbody tr:hover { background: rgba(248, 250, 252, 0.8); }
 
   .pricing-section .swiper-button-prev,
   .pricing-section .swiper-button-next{
-      width:42px;
-      height:42px;
+      width:40px !important;
+      height:40px !important;
       border-radius:50%;
-      background:#fff;
-      box-shadow:0 6px 18px rgba(0,0,0,.15);
-      color:#1E3A8A;
+      background:#fff !important;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15) !important;
+      color:#1E3A8A !important;
+      display:flex !important;
+      justify-content:center;
+      align-items:center;
+      z-index:100 !important;
+      top:50% !important;
+      margin-top:-35px !important;
   }
 
   .pricing-section .swiper-button-prev{
-      left:8px;
+      left:-6px !important;
   }
 
   .pricing-section .swiper-button-next{
-      right:8px;
+      right:-6px !important;
   }
 
   .pricing-section .swiper-button-prev::after,
   .pricing-section .swiper-button-next::after{
-      font-size:16px;
-      font-weight:700;
+      font-size:16px !important;
+      font-weight:700 !important;
   }
-}
+
+  /* Hide disabled navigation arrows on mobile to keep layout clean */
+  .pricing-section .swiper-button-disabled {
+      display:none !important;
+  }
+}

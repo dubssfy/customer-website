@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 console.log(`📧 Resend Email Integration initialized. API Key set: ${!!process.env.RESEND_API_KEY}`);
 
@@ -25,6 +25,11 @@ export const sendConfirmationEmail = async (toEmail, bookingDetails) => {
     // Use EMAIL_FROM env var if domain is verified in Resend (e.g. hello@swachham.co.in)
     // If not verified, fallback to Resend's default sender for sandboxed accounts
     const senderEmail = process.env.EMAIL_FROM || "noreply@swachham.co.in";
+
+    if (!resend) {
+      console.warn("⚠️ Resend API key is not set. Skipping sending confirmation email.");
+      return;
+    }
 
     const { data, error } = await resend.emails.send({
       from: `Swaccham Laundry <${senderEmail}>`,

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export const sendContactMail = async ({
   name,
@@ -16,6 +16,11 @@ export const sendContactMail = async ({
     
     // Send form notifications to support email (usually admin's email)
     const adminReceiver = process.env.ADMIN_RECEIVER_EMAIL || "support@swacchamlaundry.com";
+
+    if (!resend) {
+      console.warn("⚠️ Resend API key is not set. Skipping contact form notification email.");
+      return;
+    }
 
     const { data, error } = await resend.emails.send({
       from: `Swaccham Contact Form <${senderEmail}>`,
