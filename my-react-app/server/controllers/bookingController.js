@@ -95,6 +95,14 @@ await pool.query(
         bookingId
        
       });
+      console.log("Customer WhatsApp sent.");
+
+  // Admin
+  await sendWhatsAppMessage({
+    mobile: process.env.ADMIN_WHATSAPP_NUMBER,
+    name,
+    bookingId,
+  });
 
       console.log("WhatsApp sent.");
     } catch (err) {

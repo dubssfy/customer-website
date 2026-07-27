@@ -6,42 +6,44 @@ export const sendWhatsAppMessage = async ({
   mobile,
   name,
   bookingId
- 
 }) => {
   try {
+    // Add country code only if it's not already present
+    const phone = mobile.startsWith("91") ? mobile : `91${mobile}`;
+
     console.log("META_ACCESS_TOKEN:", process.env.META_ACCESS_TOKEN);
     console.log("PHONE_NUMBER_ID:", process.env.PHONE_NUMBER_ID);
-    console.log("Sending to:", `91${mobile}`);
+    console.log("Sending to:", phone);
 
     const response = await axios.post(
-  `https://graph.facebook.com/v23.0/${process.env.PHONE_NUMBER_ID}/messages`,
-  {
-  messaging_product: "whatsapp",
-  to: `91${mobile}`,
-  type: "template",
-  template: {
-    name: "booking_confirmation",
-    language: {
-      code: "en_us"
-    },
-    components: [
+      `https://graph.facebook.com/v23.0/${process.env.PHONE_NUMBER_ID}/messages`,
       {
-        type: "body",
-        parameters: [
-          { type: "text", text: name },
-          { type: "text", text: bookingId }
-        ]
+        messaging_product: "whatsapp",
+        to: phone,
+        type: "template",
+        template: {
+          name: "booking_confirmation",
+          language: {
+            code: "en_us"
+          },
+          components: [
+            {
+              type: "body",
+              parameters: [
+                { type: "text", text: name },
+                { type: "text", text: bookingId }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.META_ACCESS_TOKEN}`,
+          "Content-Type": "application/json"
+        }
       }
-    ]
-  }
-},
-  {
-    headers: {
-      Authorization: `Bearer ${process.env.META_ACCESS_TOKEN}`,
-      "Content-Type": "application/json"
-    }
-  }
-);
+    );
 
     console.log("✅ WhatsApp sent successfully");
     console.log("Meta Response:");
