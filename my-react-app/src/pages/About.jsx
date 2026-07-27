@@ -240,7 +240,7 @@ const reviews = [
     text: "I absolutely really so loved how spotless, fresh and neatly packed my blankets and curtains came back. No dust, no dullness, and colours stayed safe like new. Swaccham made my home care premium, and I'm definitely sticking with them."
   },
   {
-    name: "Satish KOkane",
+    name: "Satish Kokane",
     role: "Our Customer",
     //image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&q=80",
     rating: 5,
@@ -254,7 +254,7 @@ const reviews = [
     text: "The curtains and sofa covers I sent were returned spotless, neatly packed, and smelling wonderfully fresh. Dust and dullness vanished without harming fabric colour or texture. Swaccham made my home feel brighter, cleaner, refreshed with real care!"
   },
   {
-    name: "Sayali Fadake",
+    name: "Sayali Phadake",
     role: "Our Customer",
    // image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&q=80",
     rating: 5,
